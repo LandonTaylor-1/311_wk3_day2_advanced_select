@@ -26,29 +26,50 @@ You should have created a Google Cloud account, installed MySQL Workbench and ma
 We are going to run a couple SQL queries and put the answers in the "Query Responses" section of this README. The query instructions are intentionally written in plain english. It's up to you to translate that into a SELECT statement.
 
 1. Get a sum of all the user_ids from the `usersAddress` table grouped by state. Enter the values for the specific states below.
+    <!-- SELECT
+    sum(user_id) as userIdSum
+    FROM usersAddress
+    GROUP BY state
+    HAVING usersAddress.state = 'WY'; -->
 
 2. Find the most popular area code in the `usersContact` table. 
   * Hint: SUBSTR, GROUP BY
+  <!-- SELECT 
+	SUBSTR(phone1, 1, 3),
+	COUNT( SUBSTR(phone1, 1, 3) ) as tiny
+  FROM usersContact
+  group by SUBSTR(phone1, 1, 3)
+  ORDER BY tiny DESC -->
 
 3. Find the MIN first_name, the county, and a count of all users in that county for counties with more than 10 users. There will be four results. List the last one. 
   * Hint: MIN, COUNT, JOIN, GROUP BY, HAVING
+  
+	  <!-- SELECT
+    MIN(users.first_name) as userName,
+    usersAddress.county as userCounty,
+    COUNT(usersAddress.id) as countyUsers
+    FROM users
+    JOIN usersAddress
+    WHERE users.id = usersAddress.user_id
+    GROUP BY userCounty
+    HAVING countyUsers > 10  -->
 
 
 ## Query Responses
 
 1. Sums
-  * AK:
-  * CT
-  * TX:
-  * WY:
+  * AK: 1422
+  * CT: 99
+  * TX: 7908
+  * WY: 1271
 
 2.
-  * Area code:
+  * Area code: 973
 
 3.
-  * first_name:
-  * county:
-  * county total:
+  * first_name: Alaine
+  * county: Orange
+  * county total: 11
 
 
 ## Summary
